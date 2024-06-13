@@ -23,7 +23,7 @@ export default function Home() {
       console.log("Failed to xxxsearch");
     }
   };
-
+  const hey = () => {console.log(myInfos())}
   return (
     <main>
       <Title>Welcome</Title>
@@ -39,8 +39,10 @@ export default function Home() {
           onInput={handleInputChange}
           placeholder="Search..."
         />
-        <button type="submit">Click me</button>
+        <button type="submit">Show Results</button>
+        
       </form>
+      <button onClick={hey}>Save Results</button>
       <style>{`
         input[type=search]::-webkit-search-cancel-button {
           -webkit-appearance: searchfield-cancel-button;
