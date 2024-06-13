@@ -5,7 +5,7 @@ import {For,  createResource} from 'solid-js';
 
 const { Pool } = pkg;
 
-//included the database here due to a bug (caused by const {Pool} = pkg ?)
+//might need to refresh the page due to a bug
 
 const dialect = new PostgresDialect({
     pool: new Pool({
