@@ -23,7 +23,23 @@ export default function Home() {
       console.log("Failed to xxxsearch");
     }
   };
-  const hey = () => {console.log(myInfos())}
+  const saveResults = async () => {
+    const res = await fetch("http://localhost:3001/api/insertActors", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"actors": myInfos()})
+    });
+    if (res.ok) {
+        console.log("Cat fact saved successfully!");
+    } else {
+        console.log("Failed to save cat fact.");
+    }
+    
+}
+
+
   return (
     <main>
       <Title>Welcome</Title>
@@ -42,7 +58,7 @@ export default function Home() {
         <button type="submit">Show Results</button>
         
       </form>
-      <button onClick={hey}>Save Results</button>
+      <button onClick={saveResults}>Save Results</button>
       <style>{`
         input[type=search]::-webkit-search-cancel-button {
           -webkit-appearance: searchfield-cancel-button;
@@ -52,7 +68,7 @@ export default function Home() {
       <ul>
         <For each={myInfos()}>{(myInfo , i)=>
         <li>
-            {myInfo.name}
+            Name : {myInfo.name}   Eye color : {myInfo.eye_color}
         </li>
         }
         </For>
