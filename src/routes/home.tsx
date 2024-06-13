@@ -1,5 +1,6 @@
 import { Title } from "@solidjs/meta";
 import { For,createSignal } from "solid-js";
+import styles from '/src/components/styles.module.css';
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = createSignal("");
@@ -41,9 +42,9 @@ export default function Home() {
 
 
   return (
-    <main>
+    <main class={styles.main}>
       <Title>Welcome</Title>
-      <h1>Welcome</h1>
+      <h1>Search a Character</h1>
 
       
 
@@ -54,8 +55,9 @@ export default function Home() {
           value={searchTerm()}
           onInput={handleInputChange}
           placeholder="Search..."
+          class={styles.input}
         />
-        <button type="submit">Show Results</button>
+        <button type="submit" class={styles.button}>Show Results</button>
         
       </form>
       <button onClick={saveResults}>Save Results</button>
@@ -65,15 +67,14 @@ export default function Home() {
         }
       `}</style>
 
-      <ul>
-        <For each={myInfos()}>{(myInfo , i)=>
-        <li>
-            Name : {myInfo.name}   Eye color : {myInfo.eye_color}
-        </li>
+<ul class={styles.ul}>
+        <For each={myInfos()}>{(myInfo, i) =>
+          <li class={styles.li}>
+            <h3>Name:</h3> {myInfo.name} <h3>Eye Color</h3> {myInfo.eye_color}
+          </li>
         }
         </For>
-
-    </ul>
+      </ul>
     
     </main>
   );

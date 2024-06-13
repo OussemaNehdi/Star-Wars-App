@@ -1,7 +1,7 @@
 import {For,  createResource} from 'solid-js';
+import styles from '/src/components/styles.module.css';
 
-
-//might need to refresh the page due to a bug
+////might need to refresh the page due to a bug
 
 
 
@@ -17,11 +17,11 @@ export default function savedFactsShow() {
   
     const [actors] = createResource(getActors);
     return ( 
-    <main>
-      <ul>
-        <For each={actors()}>{(actor , i)=>
-        <li>
-            name : {actor.person} / eye color : {actor.eye_color}
+    <main class={styles.main}>
+      <ul class={styles.ul}>
+        <For each={actors()}>{(actor, i) =>
+          <li class={styles.li}>
+            <h3>Name:</h3> {actor.person} <h3>Eye Color</h3> {actor.eye_color}
         </li>
         }
         </For>
