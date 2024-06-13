@@ -6,13 +6,13 @@ const { Pool } = pkg;
 
 const dialect = new PostgresDialect({
     pool: new Pool({
-      database: 'newDataBase',
-      host: 'ep-yellow-pine-a5talan4.us-east-2.aws.neon.tech',
-      user: 'mySimple_owner',
+      database: 'secondNewDataBase',
+      host: 'ep-sparkling-sunset-a2vq12ly.eu-central-1.aws.neon.tech',
+      user: 'secondNewDataBase_owner',
       port: 5432,
       max: 10, 
       ssl: true,
-      password: 'yqNDIKY4Lve8',
+      password: 'L2QhPXiekfT9',
       
     }),
   });

@@ -32,9 +32,9 @@ export default function Home() {
         body: JSON.stringify({"actors": myInfos()})
     });
     if (res.ok) {
-        console.log("Cat fact saved successfully!");
+        console.log("Fact saved!");
     } else {
-        console.log("Failed to save cat fact.");
+        console.log("Failed to save ");
     }
     
 }

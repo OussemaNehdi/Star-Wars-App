@@ -25,33 +25,11 @@ const db = new Kysely<Database>({
 });
 
 const getActors = async () => {
-    const res = await fetch("http://localhost:3001/api/getSavedInfos");
-    const data = await res.json();
-    return data.actors;
+    const x = await db.selectFrom('actor').selectAll().execute();
+    return x;
 }
 
-
-
-export default function savedFactsShow() {
-  
-    const [actors] = createResource(getActors);
-    return ( 
-    <main>
-      <ul>
-        <For each={actors()}>{(actor , i)=>
-        <li>
-            name : {actor.person} / eye color : {actor.eye_color}
-        </li>
-        }
-        </For>
-
-    </ul>
-    </main>
-    );
-
-
+export async function GET() {
+    const actors = await getActors();
+    return {"actors" : actors};
 }
-
-
-
-
