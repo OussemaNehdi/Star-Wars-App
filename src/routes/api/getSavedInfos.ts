@@ -1,28 +1,11 @@
-import { Database } from '~/types';
-import { Kysely, PostgresDialect } from 'kysely';
 import pkg from 'pg';
-import {For,  createResource} from 'solid-js';
 
 const { Pool } = pkg;
 
-//might need to refresh the page due to a bug
 
-const dialect = new PostgresDialect({
-    pool: new Pool({
-      database: 'secondNewDataBase',
-      host: 'ep-sparkling-sunset-a2vq12ly.eu-central-1.aws.neon.tech',
-      user: 'secondNewDataBase_owner',
-      port: 5432,
-      max: 10, 
-      ssl: true,
-      password: 'L2QhPXiekfT9',
-      
-    }),
-  });
 
-const db = new Kysely<Database>({
-    dialect,
-});
+import {db} from '../database';
+
 
 const getActors = async () => {
     const x = await db.selectFrom('actor').selectAll().execute();
