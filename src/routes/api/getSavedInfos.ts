@@ -4,7 +4,7 @@ const { Pool } = pkg;
 
 
 
-import {db} from '../database';
+import {db} from '../../database';
 
 
 const getActors = async () => {

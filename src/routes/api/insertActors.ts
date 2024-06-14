@@ -2,7 +2,7 @@
 import pkg from 'pg';
 import { APIEvent } from "@solidjs/start/server";
 
-import {db} from '../database';
+import {db} from '../../database';
 
 
 export async function POST(event: APIEvent) {
