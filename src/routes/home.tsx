@@ -1,44 +1,40 @@
 import { Title } from "@solidjs/meta";
-import { For,createSignal } from "solid-js";
+import { For,createEffect,createSignal } from "solid-js";
 import styles from '/src/components/styles.module.css';
+import { serverStartSearch, serverSaveResults } from "~/serverFunctions";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = createSignal("");
+  const [debouncedInputValue, setDebouncedInputValue] = createSignal("")
+
   const [myInfos , setMyInfos] = createSignal([]);
 
   const handleInputChange = (e : Event) => {
     setSearchTerm(e.target.value);
-    console.log(searchTerm()); // debug
+    //could add other code logic here if needed (could also add the custom suggestions box)
   };
+  createEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedInputValue(searchTerm());
+      
+    }, 1000);
+    searchTerm()
+    return () => clearTimeout(timeout);
+  
+  }
+);
 
+//2 server function calls from the "use server" file serverFunctions.ts
   const startSearch = async (e : Event) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    const res = await fetch(`http://localhost:3001/api/getSearch/${searchTerm()}`);
-    if (res.ok) {
-      console.log("Search done successfully");
-      const data = await res.json();
-      setMyInfos(data.results)
-
-
-    } else {
-      console.log("Failed to xxxsearch");
-    }
+    const res = await serverStartSearch(searchTerm())
+    setMyInfos(res.results)
   };
+
   const saveResults = async () => {
-    const res = await fetch("http://localhost:3001/api/insertActors", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({"actors": myInfos()})
-    });
-    if (res.ok) {
-        console.log("Fact saved!");
-    } else {
-        console.log("Failed to save ");
-    }
-    
+    await serverSaveResults(myInfos())
 }
+  
 
 
   return (
@@ -57,9 +53,11 @@ export default function Home() {
           placeholder="Search..."
           class={styles.input}
         />
+        
         <button type="submit" class={styles.button}>Show Results</button>
         
       </form>
+      <p>Debounced Value : {debouncedInputValue()}</p>
       <button onClick={saveResults}>Save Results</button>
       <style>{`
         input[type=search]::-webkit-search-cancel-button {
